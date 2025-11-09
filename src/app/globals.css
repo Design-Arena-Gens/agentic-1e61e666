@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+:root {
+  --background: #040204;
+  --foreground: #f9f3ea;
+  --golden-glow: rgba(243, 188, 86, 0.85);
+  --scarlet: #be1e2d;
+  --ivory: #f7f5f2;
+  --smoke: rgba(28, 24, 31, 0.65);
+  --font-heading: var(--font-playfair), "Times New Roman", serif;
+  --font-body: var(--font-source-sans), "Helvetica Neue", sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at 50% -10%, #eec17f, #120609 55%);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  min-height: 100vh;
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: 0.012em;
+}
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABFklEQVR4nO3XwQ2AIBAFUYm7/6mTiQyELpAo7PLeBE7y2m5/Fsz/NzJvQVwEIIBBCAgQggEAgAEIIBBCAgQggEAgAEIIBBCAoTg3+K8vN+uqqoyLrjdim/99IGYwGP69vAJWDhWxmWQA05gZJAgEAgAEIIBBCAgQggEAgAEIIBBCAgQgYEHiVVX6ocsh1Z7k6MZznnI278F3xgffje4fXg0h+uAITAADBCAgQggEAgAEIIBBCAgQggEAgAEIIBBCAgfvR3ZuYOUS0sI9L2xn/4DBWQJhKvkhlT6A8UStjA0pNAIBAIAhCAAQggIEIIAQAIAhCAAQggIEIIAQK8DlgbarSTzRyAAAAAElFTkSuQmCC");
+  opacity: 0.18;
+  mix-blend-mode: screen;
+  animation: grain-shimmer 9s steps(10) infinite;
+}
+
+.lens-flare {
+  position: absolute;
+  width: 80vw;
+  max-width: 900px;
+  height: 80vw;
+  max-height: 900px;
+  border-radius: 45%;
+  background: radial-gradient(circle, rgba(254, 221, 141, 0.55) 0%, rgba(254, 221, 141, 0) 64%),
+    radial-gradient(circle, rgba(255, 210, 115, 0.25) 0%, rgba(255, 210, 115, 0) 75%);
+  filter: blur(18px);
+  mix-blend-mode: screen;
+  opacity: 0.8;
+  animation: lens-glow 12s ease-in-out infinite alternate;
+}
+
+.letterbox::before,
+.letterbox::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: clamp(48px, 9vh, 120px);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.65));
+  z-index: 30;
+  pointer-events: none;
+}
+
+.letterbox::before {
+  top: 0;
+}
+
+.letterbox::after {
+  bottom: 0;
+}
+
+@keyframes slow-pan {
+  0% {
+    transform: translate(-4%, 6%) scale(1.02);
+  }
+  65% {
+    transform: translate(-2%, 2%) scale(1.08);
+  }
+  100% {
+    transform: translate(0%, 0%) scale(1.12);
+  }
+}
+
+@keyframes flag-wave {
+  0%,
+  100% {
+    transform: rotateZ(-1.5deg) translateY(0);
+  }
+  50% {
+    transform: rotateZ(2deg) translateY(-6px);
+  }
+}
+
+@keyframes mane-billow {
+  0%,
+  100% {
+    transform: skewX(-2deg) scaleX(1);
+  }
+  45% {
+    transform: skewX(6deg) scaleX(1.08);
+  }
+  80% {
+    transform: skewX(-5deg) scaleX(0.96);
+  }
+}
+
+@keyframes lens-glow {
+  0% {
+    opacity: 0.6;
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    opacity: 0.82;
+    transform: rotate(8deg) scale(1.04);
+  }
+  100% {
+    opacity: 0.68;
+    transform: rotate(-6deg) scale(1.02);
+  }
+}
+
+@keyframes grain-shimmer {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-3%, -2%, 0);
+  }
+}
+
+.scene-pan {
+  animation: slow-pan 26s ease-in-out forwards;
+}
+
+.flag-wave {
+  animation: flag-wave 5.4s ease-in-out infinite;
+  transform-origin: left center;
+}
+
+.mane-billow {
+  animation: mane-billow 6.8s ease-in-out infinite;
+  transform-origin: 15% 42%;
+}
